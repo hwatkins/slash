@@ -16,8 +16,7 @@ defmodule Slash.Signature do
     data = @version <> ":" <> timestamp <> ":" <> body
 
     hash =
-      :sha256
-      |> :crypto.hmac(secret, data)
+      :crypto.mac(:hmac, :sha256, secret, data)
       |> Base.encode16(case: :lower)
 
     "v0=" <> hash
